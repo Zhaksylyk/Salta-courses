@@ -399,17 +399,23 @@
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
             
               <form id="myForm" role="form" class="php-email-form">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
+               
+                  <div class="form-group">
                     <label for="name">Имя</label>
-                    <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" placeholder="Как Вас зовут?" />
                     <div class="validate"></div>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="name">Ваш Email</label>
-                    <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
-                    <div class="validate"></div>
-                  </div>
+                  
+                
+                <div class="form-group">
+                  <label for="name">Ваш Email</label>
+                  <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" placeholder="Ваш электронная почта"  />
+                  <div class="validate"></div>
+                </div>
+                <div class="form-group">
+                  <label for="name">Ваш номер телефона</label>
+                  <input type="email" class="form-control" name="number" id="phone" data-rule="email" data-msg="Please enter a valid email" placeholder="Ваш номер телефона"  />
+                  <div class="validate"></div>
                 </div>
                 <div class="form-group">
                   <label for="name">Тема</label>
@@ -426,7 +432,7 @@
                   <div class="error-message"></div>
                   <div class="sent-message">Ваш письмо отправлено. Спасибо!</div>
                 </div>
-                <div class="text-center"><button type="button" onclick="sendEmail()" value="Send An Email">Отправить</button></div>
+                <div class="text-center"><button type="button" onclick=sendEmail() value="Send An Email">Отправить</button></div>
               </form>
             
           </div>
@@ -468,6 +474,7 @@
     function sendEmail() {
       var name = $("#name");
       var email = $("#email");
+      var phone = $("#phone");
       var subject = $("#subject");
       var body = $("#body");
 
@@ -479,13 +486,18 @@
           data: {
             name: name.val(),
             email: email.val(),
+            phone: phone.val(),
             subject: subject.val(),
             body: body.val()
           },
           success: function(response) {
             $('#myForm')[0].reset();
             $('.sent-notification').text("Message Sent Successfully.");
-          }
+            alert('Ваше сообщение успешно отправлено! Скоро с Вами свяжутся наши операторы. Спасибо за обратную связь!');
+          },
+          error: function(){
+    alert('Ошибка при отправление сообщения!');
+  }
         });
       }
     }

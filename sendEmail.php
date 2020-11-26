@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 if (isset($_POST['name']) && isset($_POST['email'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $phone = $_POST['phone'];
     $subject = $_POST['subject'];
     $body = $_POST['body'];
 
@@ -29,7 +30,23 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
     $mail->setFrom($email, $name);
     $mail->addAddress("info@smartaccount.kz"); //enter you email address
     $mail->Subject = ("$email ($subject)");
-    $mail->Body = $body;
+    $mail->Body = '<table width="90%" border="0">
+    <tr>
+    <td><b>Имя:</b></td> <td>' . $name . '</td>
+    </tr>
+    <tr>
+    <td><b>Email:</b></td> <td>' . $email . '</td>
+    </tr>
+    <tr>
+    <td><b>Телефон:</b></td> <td>' . $phone . '</td>
+    </tr>
+    <tr>
+    <td><b>Тема:</b></td> <td>' . $subject . '</td>
+    </tr>
+    <tr>
+    <td><b>Сообщения:</b></td> <td>' . $body . '</td>
+    </tr>
+    <tr></table>';
 
     if ($mail->send()) {
         $status = "success";
